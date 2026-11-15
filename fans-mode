@@ -1,0 +1,6 @@
+#!/bin/bash
+# Root helper for the fans command: writes the mode the daemon reads.
+case "$1" in
+curve|max|auto) mkdir -p /usr/local/etc && echo "$1" > /usr/local/etc/fans-mode ;;
+*) exit 2 ;;
+esac

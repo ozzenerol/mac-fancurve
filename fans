@@ -1,0 +1,12 @@
+#!/bin/bash
+# fans curve|max|auto|status
+#   curve   fans follow the temperature (default, see fancurve.sh)
+#   max     both fans at full speed
+#   auto    macOS controls the fans
+case "${1:-status}" in
+curve|max|auto) sudo /usr/local/bin/fans-mode "$1"; sleep 9 ;;
+status) ;;
+*) echo "usage: fans curve|max|auto|status" >&2; exit 2 ;;
+esac
+echo "mode: $(cat /usr/local/etc/fans-mode 2>/dev/null || echo curve)"
+/usr/local/bin/smc -f | grep -E "Fan #|Current|Target|Mode"
